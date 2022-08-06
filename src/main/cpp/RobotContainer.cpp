@@ -1,21 +1,23 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 #include "RobotContainer.h"
 
 RobotContainer::RobotContainer() {
-  // Initialize all of your commands and subsystems here
-
-  // Configure the button bindings
-  ConfigureButtonBindings();
+	// Initialize all of your commands and subsystems here
+	mSwerveLikeACar.SetDefaultCommand(std::move(mRunSwerveLikeACar));
+	mSwerveLikeACar.setDriverController(&mDriverController);
+	// Configure the button bindings
+	ConfigureButtonBindings();
 }
 
 void RobotContainer::ConfigureButtonBindings() {
-  // Configure your button bindings here
+	// Configure your button bindings here
+	mDriverLT.WhenHeld(&mHitBrakes, true);
+	mDriverButtonY.WhenPressed(&mForwardGear, false);
+	mDriverButtonX.WhenPressed(&mNeutralGear, false);
+	mDriverButtonB.WhenPressed(&mParkGear, false);
+	mDriverButtonA.WhenPressed(&mReverseGear, false);
 }
 
-frc2::Command* RobotContainer::GetAutonomousCommand() {
-  // An example command will be run in autonomous
-  return nullptr;
+frc2::Command *RobotContainer::GetAutonomousCommand() {
+	// An example command will be run in autonomous
+	return nullptr;
 }
